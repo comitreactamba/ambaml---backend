@@ -8,6 +8,7 @@ router.post('/', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
+  console.log(email, password);
   //1- Validar el usuario
 
   const sql = `SELECT * 
@@ -20,10 +21,13 @@ router.post('/', (req, res) => {
       console.log('Error al verificar el usuario');
     } else {
       if (result.length === 1) {
-        res.json({ message: 'Usuario valido' });
+        const nombreCompleto = `${result[0].nombre} ${result[0].apellido}`;
+
+        res.json({ message: 'Usuario valido', data: nombreCompleto });
       } else {
         res.status(403).json({
           message: 'Usuario y/o contraseña no validos',
+          data: null,
         });
       }
     }
