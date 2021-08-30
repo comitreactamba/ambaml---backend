@@ -2,15 +2,33 @@ const express = require('express');
 
 const cors = require('cors');
 
+const session = require('express-session');
+
+const FileStore = require('session-file-store')(session);
+
+const fileUpload = require('express-fileupload');
+
 const publicacionesRoutes = require('./routes/publicaciones');
 const categoriasRoutes = require('./routes/categorias');
 const authRoutes = require('./routes/auth');
 
 const app = express();
 
-app.use(express.static('public'));
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 
-app.use(cors());
+app.use(fileUpload());
+
+app.use(
+  session({
+    secret: '123456',
+    resave: false,
+    saveUninitialized: true,
+    store: new FileStore(),
+    name: 'ambaml',
+  })
+);
+
+app.use(express.static('public'));
 
 app.use(express.json());
 
