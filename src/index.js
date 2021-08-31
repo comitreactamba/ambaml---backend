@@ -11,6 +11,7 @@ const fileUpload = require('express-fileupload');
 const publicacionesRoutes = require('./routes/publicaciones');
 const categoriasRoutes = require('./routes/categorias');
 const authRoutes = require('./routes/auth');
+const favoritosRoutes = require('./routes/favoritos');
 
 const app = express();
 
@@ -35,5 +36,6 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/publicaciones', publicacionesRoutes);
 app.use('/categorias', categoriasRoutes);
+app.use('/favoritos', favoritosRoutes);
 
 app.listen(8000);

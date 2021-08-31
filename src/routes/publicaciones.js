@@ -182,4 +182,17 @@ router.put('/:id', (req, res) => {
   });
 });
 
+router.delete('/:id', (req, res) => {
+  const sql = `DELETE FROM publicaciones
+               WHERE id = ?`;
+
+  connection.query(sql, [req.params.id], (err, result) => {
+    if (err) {
+      res.status(500).json({ message: 'Error al eliminar la publicacion' });
+    } else {
+      res.json({ message: 'Publicación eliminada correctamente' });
+    }
+  });
+});
+
 module.exports = router;
